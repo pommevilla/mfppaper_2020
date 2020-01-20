@@ -1,0 +1,18 @@
+name: Random Things
+output_dir: docs
+navbar:
+  title: ''
+  left:
+  - text: Index
+    href: index.html
+  - text: Elbows
+    href: elbows.html
+  - text: Plotting BLAST Coverage
+    href: ggcoverage.html
+output:
+  html_document:
+    theme: lumen
+    include:
+      after_body: src/footer.html
+    lib_dir: site_libs
+    self_contained: no
