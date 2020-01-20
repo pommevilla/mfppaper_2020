@@ -1,0 +1,60 @@
+---
+title: "mfpgraphics"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+```
+
+```{r}
+U76553.data <- read.delim("data/U76553_qpcr_results.tsv")
+head(U76553.data)
+```
+
+```{r}
+ggplot(U76553.qpcr_data, aes(x = log_qty, y = ct)) + 
+  geom_point(color = 'blue') +
+  theme_light() + 
+  geom_smooth(method = 'lm', color = 'black', size = 0.1,
+              linetype = 'dashed') + 
+  coord_cartesian(xlim = c(0, 9), ylim = c(0, 35)) + 
+  scale_x_continuous(breaks = 1:9) +
+  scale_y_continuous(breaks = seq(0, 35, 5)) + 
+  labs(x = "Log Quantity",
+       y = "Cycle time",
+       title = "qPCR amplification curve for U76553") + 
+  theme(panel.grid.minor = element_blank() ) + 
+  geom_text(x = 2, y = 20, label="y = -3.8806x + 40.705\nR^2 = 0.996")
+  
+```
+
+# EF175099
+
+```{r}
+EF175099.qpcr_data <- read.delim("data/EF175099_qpcr_results.tsv")
+head(EF175099.qpcr_data)
+```
+
+```{r}
+ggplot(EF175099.qpcr_data, aes(x = log_qty, y = ct)) + 
+  geom_point(color = 'blue') +
+  theme_light() + 
+  geom_smooth(method = 'lm', color = 'black', size = 0.1,
+              linetype = 'dashed') + 
+  coord_cartesian(xlim = c(0, 9), ylim = c(0, 35)) + 
+  scale_x_continuous(breaks = 1:9) +
+  scale_y_continuous(breaks = seq(0, 35, 5)) + 
+  labs(x = "Log Quantity",
+       y = "Cycle time",
+       title = "qPCR amplification curve for EF175099") + 
+  theme(panel.grid.minor = element_blank() ) + 
+  geom_text(x = 2, y = 20, label="y = -3.7974x + 40.518\nR^2 = 0.9988")
+  
+```
