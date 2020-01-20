@@ -14,8 +14,8 @@ library(tidyverse)
 ```
 
 ```{r}
-U76553.data <- read.delim("data/U76553_qpcr_results.tsv")
-head(U76553.data)
+U76553.qpcr_data <- read.delim("data/U76553_qpcr_results.tsv")
+head(U76553.qpcr_data)
 ```
 
 ```{r}
