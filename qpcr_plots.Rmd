@@ -1,17 +1,16 @@
 ---
-title: "mfpgraphics"
+title: "qPCR Plots"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-```
 
-
-```{r}
 library(ggplot2)
 library(tidyverse)
 ```
+
+# U76553 qPCR
 
 ```{r}
 U76553.qpcr_data <- read.delim("data/U76553_qpcr_results.tsv")
@@ -35,7 +34,7 @@ ggplot(U76553.qpcr_data, aes(x = log_qty, y = ct)) +
   
 ```
 
-# EF175099
+# EF175099 qPCR
 
 ```{r}
 EF175099.qpcr_data <- read.delim("data/EF175099_qpcr_results.tsv")

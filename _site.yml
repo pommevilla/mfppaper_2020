@@ -5,10 +5,8 @@ navbar:
   left:
   - text: Index
     href: index.html
-  - text: Elbows
-    href: elbows.html
-  - text: Plotting BLAST Coverage
-    href: ggcoverage.html
+  - text: qPCR Plots
+    href: qpcr_plots.html
 output:
   html_document:
     theme: lumen
