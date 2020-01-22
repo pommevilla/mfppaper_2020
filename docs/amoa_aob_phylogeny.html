@@ -388,47 +388,15 @@ div.tocify {
 <pre class="r"><code>for (i in 1:length(amoa_tree$tip.label)){
   temp &lt;- unlist(str_split(amoa_tree$tip.label[i], &quot;_&quot;))
   org_name &lt;- str_c(temp[-c(1,2)], collapse = &quot; &quot;)
-  print(str_glue(&quot;{org_name} ({temp[2]})&quot;))
+  # print(str_glue(&quot;{org_name} ({temp[2]})&quot;))
   amoa_tree$tip.label[i] &lt;- str_glue(&quot;{org_name} ({temp[2]})&quot;)
 }</code></pre>
-<pre><code>## Nitrosomonas sp  TK794 (BAA92239)
-## uncultured ammonia-oxidizing bacterium (ACY38031)
-## uncultured bacterium (BAD15293)
-## uncultured bacterium (BAD14894)
-## Nitrosospira briensis (AAB38709)
-## uncultured ammonia-oxidizing bacterium (AFL48315)
-## uncultured ammonia-oxidizing bacterium (ADZ75352)
-## Nitrosospira multiformis ATCC 25196 (SEF68642)
-## Nitrosospira sp  Wyke8 (ABM54175)
-## Nitrosospira sp  NpAV (KIO48008)
-## Nitrosospira multiformis (AAC25057)
-## uncultured ammonia-oxidizing beta proteobacterium (ABN13016)
-## uncultured ammonia-oxidizing bacterium (ADZ75349)
-## uncultured ammonia-oxidizing beta proteobacterium (ABN11248)
-## uncultured ammonia-oxidizing beta proteobacterium (ABN12983)
-## uncultured Nitrosospira sp  (ABV49197)
-## uncultured ammonia-oxidizing bacterium (AGC92896)
-## Nitrosovibrio sp  FJI82 (ABB69924)
-## Nitrosomonas sp  AL212 (AAL86637)
-## uncultured ammonia-oxidizing beta proteobacterium (ABN13102)
-## uncultured proteobacterium (ABV90498)
-## uncultured ammonia-oxidizing beta proteobacterium (ABM91864)
-## uncultured ammonia-oxidizing beta proteobacterium (ABN13004)
-## uncultured soil bacterium (CAD62415)
-## Nitrosomonas cryotolerans ATCC 49181 (AAG60667)
-## uncultured soil bacterium (CAD62077)
-## uncultured ammonia-oxidizing bacterium (ADZ75355)
-## uncultured soil bacterium (CAD62114)
-## uncultured ammonia-oxidizing bacterium (AFL48409)
-## uncultured soil bacterium (CAD62411)
-## Nitrosococcus oceani ATCC 19707 (AAC25091)
-## Nitrosococcus halophilus Nc 4 (ADE13856)</code></pre>
 <pre class="r"><code>plotTree(amoa_tree, no.margin = TRUE,
          fsize = 1,
          lwd = 1) </code></pre>
-<p><img src="amoa_aob_phylogeny_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="amoa_aob_phylogeny_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
 <pre class="r"><code>ggtree(amoa_tree, branch.length = &quot;none&quot;) + geom_tiplab()</code></pre>
-<p><img src="amoa_aob_phylogeny_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="amoa_aob_phylogeny_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
 </div>
 
 <p><br>

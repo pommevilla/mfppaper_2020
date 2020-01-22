@@ -28,7 +28,7 @@ amoa_tree <- read.tree("./data/amoA_AOB_unaligned_clustered.95.protein_seqs.prep
 for (i in 1:length(amoa_tree$tip.label)){
   temp <- unlist(str_split(amoa_tree$tip.label[i], "_"))
   org_name <- str_c(temp[-c(1,2)], collapse = " ")
-  print(str_glue("{org_name} ({temp[2]})"))
+  # print(str_glue("{org_name} ({temp[2]})"))
   amoa_tree$tip.label[i] <- str_glue("{org_name} ({temp[2]})")
 }
 ```

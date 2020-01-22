@@ -14,23 +14,23 @@ library(tidyverse)
 
 ```{r}
 U76553.qpcr_data <- read.delim("data/U76553_qpcr_results.tsv")
-head(U76553.qpcr_data)
 ```
 
 ```{r}
 ggplot(U76553.qpcr_data, aes(x = log_qty, y = ct)) + 
-  geom_point(color = 'blue') +
+  geom_point(color = 'blue', size = 0.5) +
   theme_light() + 
   geom_smooth(method = 'lm', color = 'black', size = 0.1,
               linetype = 'dashed') + 
-  coord_cartesian(xlim = c(0, 9), ylim = c(0, 35)) + 
-  scale_x_continuous(breaks = 1:9) +
-  scale_y_continuous(breaks = seq(0, 35, 5)) + 
+  scale_x_continuous(breaks = seq(2, 10, 2), expand = c(0, 0), limits = c(0, 10)) +
+  scale_y_continuous(breaks = seq(5, 35, 5), expand = c(0, 0), limits = c(0, 35)) + 
   labs(x = "Log Quantity",
-       y = "Cycle time",
-       title = "qPCR amplification curve for U76553") + 
+       y = "CT",
+       title = "Standard curve of U76553") + 
   theme(panel.grid.minor = element_blank() ) + 
-  geom_text(x = 2, y = 20, label="y = -3.8806x + 40.705\nR^2 = 0.996")
+  annotate("text", x = 2, y = 20, label = "atop(y == -3.8806 * x + 40.705, R^2 == 0.996)", parse = TRUE) +
+  theme(panel.border = element_rect(color = "black", fill = NA, size = 2),
+        plot.title = element_text(hjust = 0.5))
   
 ```
 
@@ -38,22 +38,22 @@ ggplot(U76553.qpcr_data, aes(x = log_qty, y = ct)) +
 
 ```{r}
 EF175099.qpcr_data <- read.delim("data/EF175099_qpcr_results.tsv")
-head(EF175099.qpcr_data)
 ```
 
 ```{r}
 ggplot(EF175099.qpcr_data, aes(x = log_qty, y = ct)) + 
-  geom_point(color = 'blue') +
+  geom_point(color = 'blue', size = 0.75) +
   theme_light() + 
   geom_smooth(method = 'lm', color = 'black', size = 0.1,
               linetype = 'dashed') + 
-  coord_cartesian(xlim = c(0, 9), ylim = c(0, 35)) + 
-  scale_x_continuous(breaks = 1:9) +
-  scale_y_continuous(breaks = seq(0, 35, 5)) + 
+  scale_x_continuous(breaks = seq(2, 10, 2), expand = c(0, 0), limits = c(0, 10)) +
+  scale_y_continuous(breaks = seq(5, 35, 5), expand = c(0, 0), limits = c(0, 35)) + 
   labs(x = "Log Quantity",
-       y = "Cycle time",
-       title = "qPCR amplification curve for EF175099") + 
+       y = "CT",
+       title = "Standard curve of EF175099") + 
   theme(panel.grid.minor = element_blank() ) + 
-  geom_text(x = 2, y = 20, label="y = -3.7974x + 40.518\nR^2 = 0.9988")
+  annotate("text", x = 2, y = 20, label = "atop(y == -3.7974 * x + 40.518, R^2 == 0.9988)", parse = TRUE) +
+  theme(panel.border = element_rect(color = "black", fill = NA, size = 2),
+        plot.title = element_text(hjust = 0.5))
   
 ```

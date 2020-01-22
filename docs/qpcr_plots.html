@@ -381,55 +381,41 @@ div.tocify {
 
 <div id="u76553-qpcr" class="section level1">
 <h1>U76553 qPCR</h1>
-<pre class="r"><code>U76553.qpcr_data &lt;- read.delim(&quot;data/U76553_qpcr_results.tsv&quot;)
-head(U76553.qpcr_data)</code></pre>
-<pre><code>##        qty log_qty    ct
-## 1 3.65e+08    8.56  7.49
-## 2 3.65e+08    8.56  7.46
-## 3 3.65e+08    8.56  7.56
-## 4 3.65e+07    7.56 11.11
-## 5 3.65e+07    7.56 11.13
-## 6 3.65e+07    7.56 11.30</code></pre>
+<pre class="r"><code>U76553.qpcr_data &lt;- read.delim(&quot;data/U76553_qpcr_results.tsv&quot;)</code></pre>
 <pre class="r"><code>ggplot(U76553.qpcr_data, aes(x = log_qty, y = ct)) + 
-  geom_point(color = &#39;blue&#39;) +
+  geom_point(color = &#39;blue&#39;, size = 0.5) +
   theme_light() + 
   geom_smooth(method = &#39;lm&#39;, color = &#39;black&#39;, size = 0.1,
               linetype = &#39;dashed&#39;) + 
-  coord_cartesian(xlim = c(0, 9), ylim = c(0, 35)) + 
-  scale_x_continuous(breaks = 1:9) +
-  scale_y_continuous(breaks = seq(0, 35, 5)) + 
+  scale_x_continuous(breaks = seq(2, 10, 2), expand = c(0, 0), limits = c(0, 10)) +
+  scale_y_continuous(breaks = seq(5, 35, 5), expand = c(0, 0), limits = c(0, 35)) + 
   labs(x = &quot;Log Quantity&quot;,
-       y = &quot;Cycle time&quot;,
-       title = &quot;qPCR amplification curve for U76553&quot;) + 
+       y = &quot;CT&quot;,
+       title = &quot;Standard curve of U76553&quot;) + 
   theme(panel.grid.minor = element_blank() ) + 
-  geom_text(x = 2, y = 20, label=&quot;y = -3.8806x + 40.705\nR^2 = 0.996&quot;)</code></pre>
+  annotate(&quot;text&quot;, x = 2, y = 20, label = &quot;atop(y == -3.8806 * x + 40.705, R^2 == 0.996)&quot;, parse = TRUE) +
+  theme(panel.border = element_rect(color = &quot;black&quot;, fill = NA, size = 2),
+        plot.title = element_text(hjust = 0.5))</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="qpcr_plots_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 <div id="ef175099-qpcr" class="section level1">
 <h1>EF175099 qPCR</h1>
-<pre class="r"><code>EF175099.qpcr_data &lt;- read.delim(&quot;data/EF175099_qpcr_results.tsv&quot;)
-head(EF175099.qpcr_data)</code></pre>
-<pre><code>##        qty log_qty    ct
-## 1 3.65e+08    8.56  8.03
-## 2 3.65e+08    8.56  8.14
-## 3 3.65e+08    8.56  8.09
-## 4 3.65e+07    7.56 11.41
-## 5 3.65e+07    7.56 11.40
-## 6 3.65e+07    7.56 11.45</code></pre>
+<pre class="r"><code>EF175099.qpcr_data &lt;- read.delim(&quot;data/EF175099_qpcr_results.tsv&quot;)</code></pre>
 <pre class="r"><code>ggplot(EF175099.qpcr_data, aes(x = log_qty, y = ct)) + 
-  geom_point(color = &#39;blue&#39;) +
+  geom_point(color = &#39;blue&#39;, size = 0.75) +
   theme_light() + 
   geom_smooth(method = &#39;lm&#39;, color = &#39;black&#39;, size = 0.1,
               linetype = &#39;dashed&#39;) + 
-  coord_cartesian(xlim = c(0, 9), ylim = c(0, 35)) + 
-  scale_x_continuous(breaks = 1:9) +
-  scale_y_continuous(breaks = seq(0, 35, 5)) + 
+  scale_x_continuous(breaks = seq(2, 10, 2), expand = c(0, 0), limits = c(0, 10)) +
+  scale_y_continuous(breaks = seq(5, 35, 5), expand = c(0, 0), limits = c(0, 35)) + 
   labs(x = &quot;Log Quantity&quot;,
-       y = &quot;Cycle time&quot;,
-       title = &quot;qPCR amplification curve for EF175099&quot;) + 
+       y = &quot;CT&quot;,
+       title = &quot;Standard curve of EF175099&quot;) + 
   theme(panel.grid.minor = element_blank() ) + 
-  geom_text(x = 2, y = 20, label=&quot;y = -3.7974x + 40.518\nR^2 = 0.9988&quot;)</code></pre>
+  annotate(&quot;text&quot;, x = 2, y = 20, label = &quot;atop(y == -3.7974 * x + 40.518, R^2 == 0.9988)&quot;, parse = TRUE) +
+  theme(panel.border = element_rect(color = &quot;black&quot;, fill = NA, size = 2),
+        plot.title = element_text(hjust = 0.5))</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="qpcr_plots_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
