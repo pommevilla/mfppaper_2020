@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Paul Villanueva" />
 
 
-<title>MetaFunPrimer: Data and analysis</title>
+<title>amoA_AOB phylogenetic tree</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -374,12 +375,61 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">MetaFunPrimer: Data and analysis</h1>
+<h1 class="title toc-ignore">amoA_AOB phylogenetic tree</h1>
+<h4 class="author">Paul Villanueva</h4>
+<h4 class="date">1/20/2020</h4>
 
 </div>
 
 
-<p>Data and workflow to reproduce the figures and analysis in the paper “MetaFunPrimer” by Jia Liu, Paul Villanueva, Jaejin Lee, and Adina Howe.</p>
+<pre class="r"><code>amoa_tree &lt;- read.tree(&quot;./data/amoA_AOB_unaligned_clustered.95.protein_seqs.prepped_headers.fa.tree&quot;)</code></pre>
+<div id="fixing-labels" class="section level2">
+<h2>Fixing labels</h2>
+<pre class="r"><code>for (i in 1:length(amoa_tree$tip.label)){
+  temp &lt;- unlist(str_split(amoa_tree$tip.label[i], &quot;_&quot;))
+  org_name &lt;- str_c(temp[-c(1,2)], collapse = &quot; &quot;)
+  print(str_glue(&quot;{org_name} ({temp[2]})&quot;))
+  amoa_tree$tip.label[i] &lt;- str_glue(&quot;{org_name} ({temp[2]})&quot;)
+}</code></pre>
+<pre><code>## Nitrosomonas sp  TK794 (BAA92239)
+## uncultured ammonia-oxidizing bacterium (ACY38031)
+## uncultured bacterium (BAD15293)
+## uncultured bacterium (BAD14894)
+## Nitrosospira briensis (AAB38709)
+## uncultured ammonia-oxidizing bacterium (AFL48315)
+## uncultured ammonia-oxidizing bacterium (ADZ75352)
+## Nitrosospira multiformis ATCC 25196 (SEF68642)
+## Nitrosospira sp  Wyke8 (ABM54175)
+## Nitrosospira sp  NpAV (KIO48008)
+## Nitrosospira multiformis (AAC25057)
+## uncultured ammonia-oxidizing beta proteobacterium (ABN13016)
+## uncultured ammonia-oxidizing bacterium (ADZ75349)
+## uncultured ammonia-oxidizing beta proteobacterium (ABN11248)
+## uncultured ammonia-oxidizing beta proteobacterium (ABN12983)
+## uncultured Nitrosospira sp  (ABV49197)
+## uncultured ammonia-oxidizing bacterium (AGC92896)
+## Nitrosovibrio sp  FJI82 (ABB69924)
+## Nitrosomonas sp  AL212 (AAL86637)
+## uncultured ammonia-oxidizing beta proteobacterium (ABN13102)
+## uncultured proteobacterium (ABV90498)
+## uncultured ammonia-oxidizing beta proteobacterium (ABM91864)
+## uncultured ammonia-oxidizing beta proteobacterium (ABN13004)
+## uncultured soil bacterium (CAD62415)
+## Nitrosomonas cryotolerans ATCC 49181 (AAG60667)
+## uncultured soil bacterium (CAD62077)
+## uncultured ammonia-oxidizing bacterium (ADZ75355)
+## uncultured soil bacterium (CAD62114)
+## uncultured ammonia-oxidizing bacterium (AFL48409)
+## uncultured soil bacterium (CAD62411)
+## Nitrosococcus oceani ATCC 19707 (AAC25091)
+## Nitrosococcus halophilus Nc 4 (ADE13856)</code></pre>
+<pre class="r"><code>plotTree(amoa_tree, no.margin = TRUE,
+         fsize = 1,
+         lwd = 1) </code></pre>
+<p><img src="amoa_aob_phylogeny_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>ggtree(amoa_tree, branch.length = &quot;none&quot;) + geom_tiplab()</code></pre>
+<p><img src="amoa_aob_phylogeny_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
 
 <p><br>
 <br>
