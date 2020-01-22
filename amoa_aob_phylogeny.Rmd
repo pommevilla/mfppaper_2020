@@ -1,0 +1,47 @@
+---
+title: "amoA_AOB phylogenetic tree"
+author: "Paul Villanueva"
+date: "1/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ape)
+library(ggplot2)
+library(ggtree)
+library(phytools)
+library(stringr)
+library(tidyverse)
+
+theme_set(theme_light())
+```
+
+```{r}
+amoa_tree <- read.tree("./data/amoA_AOB_unaligned_clustered.95.protein_seqs.prepped_headers.fa.tree")
+```
+
+## Fixing labels
+
+```{r}
+for (i in 1:length(amoa_tree$tip.label)){
+  temp <- unlist(str_split(amoa_tree$tip.label[i], "_"))
+  org_name <- str_c(temp[-c(1,2)], collapse = " ")
+  print(str_glue("{org_name} ({temp[2]})"))
+  amoa_tree$tip.label[i] <- str_glue("{org_name} ({temp[2]})")
+}
+```
+
+```{r}
+plotTree(amoa_tree, no.margin = TRUE,
+         fsize = 1,
+         lwd = 1) 
+```
+
+```{r}
+ggtree(amoa_tree, branch.length = "none") + geom_tiplab()
+```
+
+
+
