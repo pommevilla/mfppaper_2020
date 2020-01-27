@@ -18,30 +18,37 @@ library(tidyverse)
 theme_set(theme_light())
 ```
 
-```{r}
+## Read in data
+
+```{r amoa_aob.data}
 amoa_tree <- read.tree("./data/amoA_AOB_unaligned_clustered.95.protein_seqs.prepped_headers.fa.tree")
 ```
 
-## Fixing labels
+### Fixing labels
 
-```{r}
+```{r amoa_aob.labels}
+amoa_tree <- read.tree("./data/amoA_AOB_unaligned_clustered.95.protein_seqs.prepped_headers.fa.tree")
 for (i in 1:length(amoa_tree$tip.label)){
   temp <- unlist(str_split(amoa_tree$tip.label[i], "_"))
-  org_name <- str_c(temp[-c(1,2)], collapse = " ")
-  # print(str_glue("{org_name} ({temp[2]})"))
-  amoa_tree$tip.label[i] <- str_glue("{org_name} ({temp[2]})")
+  org_name <- str_replace(unlist(lapply(temp[-c(1, 2)], function(x) x[!x %in% ""])), "\\bsp\\b", "sp.")
+
+  new_label <- vector(mode = "character", length = length(org_name))
+  for(k in 1:length(org_name)){
+    if (str_detect(org_name[k], "Nitro") ||
+        org_name[k] %in% c("halophilus", "oceani", "cryotolerans", "multiformis", "briensis")){
+      new_label[k] <- str_glue("italic(\"{org_name[k]}\")")
+      } else {
+      new_label[k] <- str_glue("plain(\"{org_name[k]}\")")
+    }
+  }
+  new_label[length(new_label) + 1] <- paste0("\"(", temp[2], ")\"")
+  amoa_tree$tip.label[i] <- parse(text = paste(new_label, collapse = " * \" \" * "))
 }
 ```
 
-```{r}
-plotTree(amoa_tree, no.margin = TRUE,
-         fsize = 1,
-         lwd = 1) 
+### Plotting 
+
+```{r amoa_aob.plot}
+plot(amoa_tree, no.margin = TRUE) 
+add.scale.bar(font = 2)
 ```
-
-```{r}
-ggtree(amoa_tree, branch.length = "none") + geom_tiplab()
-```
-
-
-

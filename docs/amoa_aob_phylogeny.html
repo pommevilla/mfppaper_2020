@@ -382,21 +382,35 @@ div.tocify {
 </div>
 
 
+<div id="read-in-data" class="section level2">
+<h2>Read in data</h2>
 <pre class="r"><code>amoa_tree &lt;- read.tree(&quot;./data/amoA_AOB_unaligned_clustered.95.protein_seqs.prepped_headers.fa.tree&quot;)</code></pre>
-<div id="fixing-labels" class="section level2">
-<h2>Fixing labels</h2>
-<pre class="r"><code>for (i in 1:length(amoa_tree$tip.label)){
+<div id="fixing-labels" class="section level3">
+<h3>Fixing labels</h3>
+<pre class="r"><code>amoa_tree &lt;- read.tree(&quot;./data/amoA_AOB_unaligned_clustered.95.protein_seqs.prepped_headers.fa.tree&quot;)
+for (i in 1:length(amoa_tree$tip.label)){
   temp &lt;- unlist(str_split(amoa_tree$tip.label[i], &quot;_&quot;))
-  org_name &lt;- str_c(temp[-c(1,2)], collapse = &quot; &quot;)
-  # print(str_glue(&quot;{org_name} ({temp[2]})&quot;))
-  amoa_tree$tip.label[i] &lt;- str_glue(&quot;{org_name} ({temp[2]})&quot;)
+  org_name &lt;- str_replace(unlist(lapply(temp[-c(1, 2)], function(x) x[!x %in% &quot;&quot;])), &quot;\\bsp\\b&quot;, &quot;sp.&quot;)
+
+  new_label &lt;- vector(mode = &quot;character&quot;, length = length(org_name))
+  for(k in 1:length(org_name)){
+    if (str_detect(org_name[k], &quot;Nitro&quot;) ||
+        org_name[k] %in% c(&quot;halophilus&quot;, &quot;oceani&quot;, &quot;cryotolerans&quot;, &quot;multiformis&quot;, &quot;briensis&quot;)){
+      new_label[k] &lt;- str_glue(&quot;italic(\&quot;{org_name[k]}\&quot;)&quot;)
+      } else {
+      new_label[k] &lt;- str_glue(&quot;plain(\&quot;{org_name[k]}\&quot;)&quot;)
+    }
+  }
+  new_label[length(new_label) + 1] &lt;- paste0(&quot;\&quot;(&quot;, temp[2], &quot;)\&quot;&quot;)
+  amoa_tree$tip.label[i] &lt;- parse(text = paste(new_label, collapse = &quot; * \&quot; \&quot; * &quot;))
 }</code></pre>
-<pre class="r"><code>plotTree(amoa_tree, no.margin = TRUE,
-         fsize = 1,
-         lwd = 1) </code></pre>
-<p><img src="amoa_aob_phylogeny_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<pre class="r"><code>ggtree(amoa_tree, branch.length = &quot;none&quot;) + geom_tiplab()</code></pre>
-<p><img src="amoa_aob_phylogeny_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="plotting" class="section level3">
+<h3>Plotting</h3>
+<pre class="r"><code>plot(amoa_tree, no.margin = TRUE) 
+add.scale.bar(font = 2)</code></pre>
+<p><img src="amoa_aob_phylogeny_files/figure-html/amoa_aob.plot-1.png" width="672" /></p>
+</div>
 </div>
 
 <p><br>
