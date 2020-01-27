@@ -24,8 +24,8 @@ ggplot(U76553.qpcr_data, aes(x = log_qty, y = ct)) +
               linetype = 'dashed') + 
   scale_x_continuous(breaks = seq(2, 10, 2), expand = c(0, 0), limits = c(0, 10)) +
   scale_y_continuous(breaks = seq(5, 35, 5), expand = c(0, 0), limits = c(0, 35)) + 
-  labs(x = "Log Quantity",
-       y = "CT",
+  labs(x = "Log Concentration (gene copies/reaction)",
+       y = "Cycle Threshold",
        title = "Standard curve of U76553") + 
   theme(panel.grid.minor = element_blank() ) + 
   annotate("text", x = 2, y = 20, label = "atop(y == -3.8806 * x + 40.705, R^2 == 0.996)", parse = TRUE) +
@@ -48,8 +48,8 @@ ggplot(EF175099.qpcr_data, aes(x = log_qty, y = ct)) +
               linetype = 'dashed') + 
   scale_x_continuous(breaks = seq(2, 10, 2), expand = c(0, 0), limits = c(0, 10)) +
   scale_y_continuous(breaks = seq(5, 35, 5), expand = c(0, 0), limits = c(0, 35)) + 
-  labs(x = "Log Quantity",
-       y = "CT",
+  labs(x = "Log Concentration (gene copies/reaction)",
+       y = "Cycle Threshold",
        title = "Standard curve of EF175099") + 
   theme(panel.grid.minor = element_blank() ) + 
   annotate("text", x = 2, y = 20, label = "atop(y == -3.7974 * x + 40.518, R^2 == 0.9988)", parse = TRUE) +
