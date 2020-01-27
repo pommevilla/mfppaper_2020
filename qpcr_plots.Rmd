@@ -12,11 +12,11 @@ library(tidyverse)
 
 # U76553 qPCR
 
-```{r}
+```{r U76553.read_data}
 U76553.qpcr_data <- read.delim("data/U76553_qpcr_results.tsv")
 ```
 
-```{r}
+```{r U76553.plot, message = FALSE}
 ggplot(U76553.qpcr_data, aes(x = log_qty, y = ct)) + 
   geom_point(color = 'blue', size = 0.5) +
   theme_light() + 
@@ -36,11 +36,11 @@ ggplot(U76553.qpcr_data, aes(x = log_qty, y = ct)) +
 
 # EF175099 qPCR
 
-```{r}
+```{r, EF175099.read_data}
 EF175099.qpcr_data <- read.delim("data/EF175099_qpcr_results.tsv")
 ```
 
-```{r}
+```{r EF175099.plot, message = FALSE}
 ggplot(EF175099.qpcr_data, aes(x = log_qty, y = ct)) + 
   geom_point(color = 'blue', size = 0.75) +
   theme_light() + 
