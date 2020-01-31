@@ -7,10 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
 library(ape)
-library(ggplot2)
-library(ggtree)
 library(phytools)
 library(stringr)
 library(tidyverse)
@@ -24,14 +21,13 @@ theme_set(theme_light())
 amoa_tree <- read.tree("./data/amoA_AOB_unaligned_clustered.95.protein_seqs.prepped_headers.fa.tree")
 ```
 
-### Fixing labels
+#### Genes of interest in red
 
-```{r amoa_aob.labels}
-amoa_tree <- read.tree("./data/amoA_AOB_unaligned_clustered.95.protein_seqs.prepped_headers.fa.tree")
+```{r amoa_aob.red_labels.1}
+tip_colors <- vector(mode = "character", length = length(amoa_tree$tip.label))
 for (i in 1:length(amoa_tree$tip.label)){
   temp <- unlist(str_split(amoa_tree$tip.label[i], "_"))
   org_name <- str_replace(unlist(lapply(temp[-c(1, 2)], function(x) x[!x %in% ""])), "\\bsp\\b", "sp.")
-
   new_label <- vector(mode = "character", length = length(org_name))
   for(k in 1:length(org_name)){
     if (str_detect(org_name[k], "Nitro") ||
@@ -43,12 +39,57 @@ for (i in 1:length(amoa_tree$tip.label)){
   }
   new_label[length(new_label) + 1] <- paste0("\"(", temp[2], ")\"")
   amoa_tree$tip.label[i] <- parse(text = paste(new_label, collapse = " * \" \" * "))
+  if (temp[2] %in% c('ADE13856', "ABM54175", "KIO48008", "AAC25057", "AAB38709", "SEF68642"))
+  {
+    tip_colors[i] <- "red"
+  } else {
+    tip_colors[i] <- "black"
+  }
 }
 ```
 
-### Plotting 
+### Plotting
 
-```{r amoa_aob.plot}
-plot(amoa_tree, no.margin = TRUE) 
+```{r amoa_aob.red_labels.2}
+plot(amoa_tree, no.margin = TRUE, x.lim = 1,
+     tip.color = tip_colors)
+add.scale.bar(font = 2)
+```
+
+### Highlighting genes of interest with bold:
+
+```{r amoa_aob.bold_labels.1}
+amoa_tree <- read.tree("./data/amoA_AOB_unaligned_clustered.95.protein_seqs.prepped_headers.fa.tree")
+for (i in 1:length(amoa_tree$tip.label)){
+  temp <- unlist(str_split(amoa_tree$tip.label[i], "_"))
+  org_name <- str_replace(unlist(lapply(temp[-c(1, 2)], function(x) x[!x %in% ""])), "\\bsp\\b", "sp.")
+  new_label <- vector(mode = "character", length = length(org_name))
+  for(k in 1:length(org_name)){
+    if (temp[2] %in% c('ADE13856', "ABM54175", "KIO48008", "AAC25057", "AAB38709", "SEF68642"))
+    {
+        if (str_detect(org_name[k], "Nitro") ||
+          org_name[k] %in% c("halophilus", "oceani", "cryotolerans", "multiformis", "briensis")){
+          new_label[k] <- str_glue("bolditalic(\"{org_name[k]}\")")
+        } else {
+        new_label[k] <- str_glue("bold(\"{org_name[k]}\")")
+      }
+    } else {
+      if (str_detect(org_name[k], "Nitro") ||
+        org_name[k] %in% c("halophilus", "oceani", "cryotolerans", "multiformis", "briensis")){
+      new_label[k] <- str_glue("italic(\"{org_name[k]}\")")
+      } else {
+      new_label[k] <- str_glue("plain(\"{org_name[k]}\")")
+    }
+    }
+  }
+  new_label[length(new_label) + 1] <- paste0("\"(", temp[2], ")\"")
+  amoa_tree$tip.label[i] <- parse(text = paste(new_label, collapse = " * \" \" * "))
+}
+```
+
+#### Plotting
+
+```{r amoa_aob.bold_labels.2}
+plot(amoa_tree, no.margin = TRUE, x.lim = 1)
 add.scale.bar(font = 2)
 ```
