@@ -51,7 +51,7 @@ for (i in 1:length(amoa_tree$tip.label)){
 ### Plotting
 
 ```{r amoa_aob.red_labels.2}
-plot(amoa_tree, no.margin = TRUE, x.lim = 1,
+plot(amoa_tree, no.margin = TRUE, x.lim = 2,
      tip.color = tip_colors)
 add.scale.bar(font = 2)
 ```
@@ -90,6 +90,6 @@ for (i in 1:length(amoa_tree$tip.label)){
 #### Plotting
 
 ```{r amoa_aob.bold_labels.2}
-plot(amoa_tree, no.margin = TRUE, x.lim = 1)
+plot(amoa_tree, no.margin = TRUE, x.lim = 2)
 add.scale.bar(font = 2)
 ```
